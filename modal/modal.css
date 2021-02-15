@@ -1,0 +1,50 @@
+.modalBtn {
+  all: unset;
+  padding: 10px 10px;
+  background-color: gray;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.modalWindow {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+}
+.modalContent{
+  background-color: white;
+  text-align: center;
+  position: relative;
+  width: 25%;
+  height: 20%;
+  box-shadow: 0 10px 20px;
+}
+.modaloverlay{
+  background-color: rgba(0,0,0,0.5);
+  width:100%;
+  height: 100%;
+  position: absolute;
+}
+
+body {
+  background-color: #F2F2F2;
+}
+
+.modalHeader{
+  text-align: right;
+  background-color: black;
+}
+
+.wrap {
+  width: 1980px;
+  height: 1080px;
+}
+
+.modalHidden{
+  display:none;
+}
