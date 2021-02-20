@@ -1,70 +1,32 @@
-const SHOWING_CLASS = "showing";
-const SLIDEIN_CLASS = "slideIn";
-const SLIDEOUT_CLASS = "slideOut";
-const slider_item = document.querySelector(".slider_item");
-const firstSlide = document.querySelector(".slider_item:first-child");
-const lastSlide = document.querySelector(".slider_item:last-child");
-const leftBtn = document.querySelector(".leftBtn");
-const rightBtn = document.querySelector(".rightBtn");
-firstSlide.classList.add(SHOWING_CLASS);
+const rBtn = document.querySelector(".rightBtn");
+const lBtn = document.querySelector(".leftBtn");
+const slider = document.querySelector(".slider");
+const sliderItem = document.querySelectorAll(".sliderItem");
+const container = document.querySelector(".container");
+const item_totalIndex = sliderItem.length;
+const item_lastIndex = item_totalIndex - 1;
+var itemWidth = container.clientWidth;
+var itemIndex = 0;
+slider.style.width = itemWidth * item_totalIndex + 'px';
 
-
-function slideInOutSystem(nextItem,nowItem){
-  nowItem.classList.remove(SLIDEIN_CLASS);
-  nextItem.classList.add(SLIDEIN_CLASS);
-  nowItem.classList.add(SLIDEOUT_CLASS);
-  const preItem = nowItem.previousElementSibling;
-  if(preItem){
-    preItem.classList.remove(SLIDEOUT_CLASS);
+function carouselSlide(n){
+  if (n === 1 && itemIndex === item_lastIndex){
+    itemIndex = 0;
+  }else if ( n === -1 && itemIndex === 0){
+    itemIndex = item_lastIndex;
   }else{
-    lastSlide.classList.remove(SLIDEOUT_CLASS);
+    itemIndex = itemIndex + n ;
   }
+  slider.style.left = - (itemWidth * itemIndex) + 'px';
 }
 
-//
-// function slideInOut_remove(a){
-//   )
-// }
-
-function nextSlide(){
-  const nowItem = document.querySelector(`.${SHOWING_CLASS}`);
-  nowItem.classList.remove(SHOWING_CLASS);
-  // nowItem.classList.remove(SLIDEIN_CLASS);
-  const nextItem = nowItem.nextElementSibling; // next element sibling은 다음 첫번째 sibling을 리턴(=element) 그렇지 않은경우 null을 return
-  // const previousSlide = nowItem.previousElementSibling;
-  // if(previousSlide){
-  //   previousSlide.classList.remove(SLIDEOUT_CLASS);
-  // }else{
-  //   lastSlide.classList.remove(SLIDEOUT_CLASS);
-  // }
-  if(nextItem){
-    slideInOutSystem(nextItem,nowItem);
-    nextItem.classList.add(SHOWING_CLASS);
-    // nextItem.classList.add(SLIDEIN_CLASS);
-    // nowItem.classList.add(SLIDEOUT_CLASS);
-  }else{
-    slideInOutSystem(firstSlide,lastSlide);
-    firstSlide.classList.add(SHOWING_CLASS);
-    // firstSlide.classList.add(SLIDEIN_CLASS);
-    // lastSlide.classList.add(SLIDEOUT_CLASS);
-  }
-}
-
-function previousSlide(){
-  const nowItem = document.querySelector(`.${SHOWING_CLASS}`);
-  nowItem.classList.remove(SHOWING_CLASS);
-  const previousSlide = nowItem.previousElementSibling; // next element sibling은 다음 첫번째 sibling을 리턴(=element) 그렇지 않은경우 null을 return
-  if(previousSlide){
-    previousSlide.classList.add(SHOWING_CLASS);
-  }else{
-    lastSlide.classList.add(SHOWING_CLASS);
-  }
-}
 function init(){
-  // previousSlide();
-  // nextItem();
-  leftBtn.addEventListener("click",previousSlide);
-  rightBtn.addEventListener("click",nextSlide);
+  rBtn.addEventListener('click',function(){
+    carouselSlide(1)
+  });
+  lBtn.addEventListener('click',function(){
+    carouselSlide(-1)
+  });
 }
+
 init();
-// setInterval(slide, 2000); //2000ms(=2초)마다 해당 function을 불러옴 : 함수반복시킴
